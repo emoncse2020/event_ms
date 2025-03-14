@@ -58,6 +58,13 @@ class EventModelForm(StyledFormMixin,forms.ModelForm):
             'time':forms.TimeInput()
         }
 
+
+class ParticipantModelForm(StyledFormMixin,forms.ModelForm):
+    
+    class Meta:
+        model = Participant
+        fields = ['name', 'email']
+
        
 
 

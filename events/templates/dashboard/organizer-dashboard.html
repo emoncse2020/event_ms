@@ -1,0 +1,78 @@
+
+{% extends "dashboard/dashboard.html" %}
+
+{% block content %}
+
+<!--Todays Events-->
+      <div class="bg-zinc-700 rounded-xl text-white p-6 mx-8 mt-6">
+  <h2 class="text-2xl font-semibold border-b pb-2 mb-4">Today's Events</h2>
+  
+ {% if today_events %}
+  <div class="space-y-4">
+    <!-- Example Event Item -->
+    {% for event in today_events %}
+      <div class="bg-zinc-800 p-4 rounded-lg flex justify-between items-center">
+      <div>
+        <h3 class="text-xl font-medium">Event Name</h3>
+        <p class="text-sm text-gray-400">Description of the event goes here...</p>
+        <p class="text-sm text-gray-500 mt-1">📅 Date: 14 March 2025 | ⏰ Time: 3:00 PM</p>
+      </div>
+    <div class="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-semibold">
+        Ongoing
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-start">No Events Today</p>
+ 
+ {% endif %}
+    
+   
+    
+    <!-- Add more event items dynamically -->
+  </div>
+</div>
+
+<div class="bg-zinc-700 rounded-xl text-white p-6 mx-8 mt-6 mb-4">
+        <div
+          class="grid grid-cols-4 p-4 border-b "
+        >
+          <div class="uppercase">Event Name</div>
+          <div class="uppercase">Date</div>
+          <div class="uppercase">participants</div>
+          <div class="uppercase">Location</div>
+          
+        </div>
+        <!--Event Items-->
+    <div class="divide-y divide-gray-100">
+
+          <!--Event 1-->
+      {% for event in events %}
+        <div class="grid grid-cols-4 gap-4 p-4 items-center">
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full bg-green-500"></div>
+          <span>{{event.name}}</span>
+          <a href="" class="px-2 py-1 bg-zinc-900 rounded-xl">Edit</a>
+        </div>
+        <div>
+          <span
+            class=""
+            >{{event.date}}</span
+          >
+        </div>
+        <div class="flex -space-x-2">
+         {% for emp in event.events.all %}
+           <div
+            class="w-8 h-8 rounded-full bg-cyan-500 flex items-center justify-center text-white text-sm border-2 border-white"
+          >
+            {{emp.name|slice:':2'}}
+          </div>
+         {% endfor %}
+          
+        </div>
+        <div class="uppercase ">{{event.location}}</div>
+      </div>
+      {% endfor %}
+
+
+{% endblock content %}
