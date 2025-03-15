@@ -44,6 +44,9 @@ def create_event(request):
 
     return render(request, 'create-event.html', context)
 
+
+
+
 def organizer_dashboard(request):
     today = now().date()
     
