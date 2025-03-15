@@ -7,7 +7,15 @@ from django.utils.timezone import now
 # Create your views here.
 
 def home(request):
-    return render(request, 'events/home.html')
+    today = now().date()
+
+    up_events = Event.objects.select_related('category').prefetch_related('events').filter(date__gte=today)
+
+    context = {
+        "up_events":up_events,
+    }
+
+    return render(request, 'events/home.html', context)
 
 def create_event(request):
 
