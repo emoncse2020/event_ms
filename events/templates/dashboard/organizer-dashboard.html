@@ -1,4 +1,3 @@
-
 {% extends "dashboard/dashboard.html" %}
 
 {% block content %}
@@ -52,7 +51,11 @@
         <div class="flex items-center gap-2">
           <div class="w-2 h-2 rounded-full bg-green-500"></div>
           <span>{{event.name}}</span>
-          <a href="" class="px-2 py-1 bg-zinc-900 rounded-xl">Edit</a>
+          <a href="{% url "update-event" event.id %}" class="px-2 py-1 bg-zinc-900 rounded-xl">Edit</a>
+          <form action="{% url "delete-event" event.id %}"method="POST">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-600 px-2 py-1 rounded-xl">Delete</button>
+          </form>
         </div>
         <div>
           <span
@@ -61,7 +64,7 @@
           >
         </div>
         <div class="flex -space-x-2">
-         {% for emp in event.events.all %}
+         {% for emp in event.participants.all %}
            <div
             class="w-8 h-8 rounded-full bg-cyan-500 flex items-center justify-center text-white text-sm border-2 border-white"
           >

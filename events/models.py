@@ -17,7 +17,7 @@ class Event(models.Model):
 class Participant(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    event = models.ForeignKey("Event", on_delete=models.CASCADE, related_name='events')
+    event = models.ForeignKey("Event", on_delete=models.CASCADE, related_name='participants')
 
     def __str__(self):
         return f'{self.name} | {self.name} | {self.email}'

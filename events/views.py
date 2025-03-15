@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect 
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import EventModelForm, ParticipantModelForm
 from .models import Event, Participant,Category
 from django.db.models import Count, Q
@@ -9,7 +9,7 @@ from django.utils.timezone import now
 def home(request):
     today = now().date()
 
-    up_events = Event.objects.select_related('category').prefetch_related('events').filter(date__gte=today)
+    up_events = Event.objects.select_related('category').prefetch_related('participants').filter(date__gte=today)
 
     context = {
         "up_events":up_events,
@@ -43,8 +43,42 @@ def create_event(request):
     }
 
     return render(request, 'create-event.html', context)
+def update_event(request, id):
+    event = get_object_or_404(Event, id=id)
+    participant = get_object_or_404(Participant, event=event)
+    event_form = EventModelForm(instance=event)
+
+    event_participant_form = ParticipantModelForm(instance = participant)
+
+    if request.method == "POST":
+        event_form = EventModelForm(request.POST, instance=event)
+        event_participant_form = ParticipantModelForm(request.POST, instance= participant)
+        if event_form.is_valid() and event_participant_form.is_valid():
+            
+            
+            event = event_form.save()
+            participant = event_participant_form.save(commit=False)
+            participant.event = event
+            participant.save()
 
 
+
+            return redirect ('home')
+
+    context = {
+        "event_form": event_form,
+        "event_participant_form":event_participant_form
+    }
+
+    return render(request, 'create-event.html', context)
+
+def delete_event(request, id):
+    event = get_object_or_404(Event, id= id)
+    if request.method == "POST":
+        event.delete()
+        return redirect('home')
+    
+    
 
 
 def organizer_dashboard(request):
@@ -59,7 +93,7 @@ def organizer_dashboard(request):
         )
     total_participant = Participant.objects.count()
     # events = Event.objects.select_related('category').prefetch_related('events').all()
-    base_query = Event.objects.select_related('category').prefetch_related('events')
+    base_query = Event.objects.select_related('category').prefetch_related('participants')
 
     if type == "total-events":
         events = base_query.all()
@@ -87,7 +121,7 @@ def organizer_dashboard(request):
 
 def view_events(request):
 
-    events = Event.objects.select_related('category').prefetch_related('events').all()
+    events = Event.objects.select_related('category').prefetch_related('participants').all()
     total_participant = Participant.objects.count()
 
     context = {
