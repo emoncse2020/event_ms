@@ -63,7 +63,7 @@ class ParticipantModelForm(StyledFormMixin,forms.ModelForm):
     
     class Meta:
         model = Participant
-        fields = ['name', 'email', 'event']
+        fields = ['name', 'email']
 
        
 

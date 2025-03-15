@@ -31,7 +31,8 @@ def create_event(request):
             event = event_form.save()
             participant = event_participant_form.save(commit=False)
             participant.event = event
-            participant.save()
+            participant.save
+            
 
 
 
@@ -54,15 +55,12 @@ def update_event(request, id):
         event_form = EventModelForm(request.POST, instance=event)
         event_participant_form = ParticipantModelForm(request.POST, instance= participant)
         if event_form.is_valid() and event_participant_form.is_valid():
-            
-            
+
+               
             event = event_form.save()
             participant = event_participant_form.save(commit=False)
-            participant.event = event
+            event.participants.add(participant)
             participant.save()
-
-
-
             return redirect ('home')
 
     context = {
@@ -92,7 +90,6 @@ def organizer_dashboard(request):
 
         )
     total_participant = Participant.objects.count()
-    # events = Event.objects.select_related('category').prefetch_related('events').all()
     base_query = Event.objects.select_related('category').prefetch_related('participants')
 
     if type == "total-events":

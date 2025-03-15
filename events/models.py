@@ -20,7 +20,7 @@ class Participant(models.Model):
     event = models.ForeignKey("Event", on_delete=models.CASCADE, related_name='participants')
 
     def __str__(self):
-        return f'{self.name} | {self.name} | {self.email}'
+        return f'{self.name} | {self.email}'
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
