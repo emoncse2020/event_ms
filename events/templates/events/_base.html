@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   {% load static %}
-  {% comment %} <script src="https://unpkg.com/@tailwindcss/browser@4"></script> {% endcomment %}
-  <script src="https://cdn.tailwindcss.com"></script>
+  
+
+  <link rel="stylesheet" href="{% static 'css/output.css' %}">
 </head>
 
 <body class="bg-zinc-800">
@@ -18,7 +19,7 @@
         <div class="hidden space-x-8 font-bold lg:flex">
           <a href="#" class="text-gray-300 hover:text-white">Features</a>
           <a href="#" class="text-gray-300 hover:text-white">Upcoming Event</a>
-          <a href="#" class="text-gray-300 hover:text-white">Dashboard</a>
+          <a href="{% url "organizer-dashboard" %}" class="text-gray-300 hover:text-white">Dashboard</a>
         </div>
       </div>
       <div class="hidden items-center space-x-6 font-bold text-gray-300 lg:flex">
@@ -39,7 +40,7 @@
       <div class="flex flex-col items-center w-full space-y-6 font-bold text-white">
         <a href="#" class=" text-center">Features</a>
         <a href="#" class=" text-center">Upcoming Events</a>
-        <a href="#" class=" text-center">Dashboard</a>
+        <a href="{% url "organizer-dashboard" %}" class=" text-center">Dashboard</a>
         <a href="#" class=" w-full pt-6 border-t border-gray-400 text-center">Login</a>
         <a href="#" class=" py-3 px-5 text-center rounded-full bg-cyan-300">Sign Up</a>
       </div>

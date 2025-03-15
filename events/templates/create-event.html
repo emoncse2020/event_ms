@@ -1,10 +1,11 @@
+{% load static %}
 <!doctype html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% comment %} <script src="https://unpkg.com/@tailwindcss/browser@4"></script> {% endcomment %}
-     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+     
   </head>
   <body>
     <div class='w-1/2 mx-auto my-8 flex items-center justify-center'>
