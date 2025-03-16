@@ -58,7 +58,7 @@ def update_event(request, id):
                
             event = event_form.save()
             participant = event_participant_form.save(commit=False)
-            event.participants.add(participant)
+            participant.event = event
             participant.save()
             return redirect ('home')
 
