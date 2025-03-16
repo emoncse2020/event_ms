@@ -19,22 +19,20 @@ def home(request):
 
 def create_event(request):
 
-    event_form = EventModelForm()
-    event_participant_form = ParticipantModelForm()
+    event_form = EventModelForm(prefix='event')
+    event_participant_form = ParticipantModelForm(prefix='participant')
 
     if request.method == "POST":
-        event_form = EventModelForm(request.POST)
-        event_participant_form = ParticipantModelForm(request.POST)
+        event_form = EventModelForm(request.POST, prefix='event')
+        event_participant_form = ParticipantModelForm(request.POST, prefix='participant')
         if event_form.is_valid() and event_participant_form.is_valid():
             
             
             event = event_form.save()
             participant = event_participant_form.save(commit=False)
             participant.event = event
-            participant.save
+            participant.save()
             
-
-
 
             return redirect ('home')
 
@@ -46,14 +44,15 @@ def create_event(request):
     return render(request, 'create-event.html', context)
 def update_event(request, id):
     event = get_object_or_404(Event, id=id)
-    participant = get_object_or_404(Participant, event=event)
-    event_form = EventModelForm(instance=event)
+    # participant = get_object_or_404(Participant, event=event)
+    participant = Participant.objects.filter(event=event).first()
+    event_form = EventModelForm(instance=event, prefix='event')
 
-    event_participant_form = ParticipantModelForm(instance = participant)
+    event_participant_form = ParticipantModelForm(instance = participant, prefix='participant')
 
     if request.method == "POST":
-        event_form = EventModelForm(request.POST, instance=event)
-        event_participant_form = ParticipantModelForm(request.POST, instance= participant)
+        event_form = EventModelForm(request.POST, instance=event, prefix='event')
+        event_participant_form = ParticipantModelForm(request.POST, instance= participant, prefix='participant')
         if event_form.is_valid() and event_participant_form.is_valid():
 
                
