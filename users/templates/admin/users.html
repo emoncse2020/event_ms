@@ -1,0 +1,65 @@
+{% comment %} {% extends "admin/dashboard.html" %} {% endcomment %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="overflow-x-auto shadow-lg rounded-lg border border-zinc-600">
+        <table class="min-w-full bg-zinc-800">
+            <thead class="bg-zinc-700">
+                <tr>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider border-b border-zinc-600">
+                        Number
+                    </th>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider border-b border-zinc-600">
+                        User
+                    </th>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider border-b border-zinc-600">
+                        Email
+                    </th>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider border-b border-zinc-600">
+                        ID
+                    </th>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider border-b border-zinc-600">
+                        Role
+                    </th>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider border-b border-zinc-600">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-600">
+                {% for user in users %}
+                <tr class="hover:bg-zinc-700/50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap text-white">
+                        {{ forloop.counter }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-white">
+                        {{user.first_name}} {{user.last_name}}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-white">
+                        {{user.email}}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-white">
+                      {{user.id}}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-white">
+                        <span class="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded-full text-sm">
+                            {{user.group_name}}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="{% url 'edit-group' user.id %}" 
+                           class="inline-flex items-center px-4 py-2 bg-cyan-600 hover:bg-cyan-500 border border-cyan-500 rounded-lg text-sm font-medium text-white transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21v-2a4 4 0 00-4-4H9a4 4 0 00-4 4v2"/>
+                            </svg>
+                            Edit Group
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

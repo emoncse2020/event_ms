@@ -5,7 +5,7 @@ from .models import Event, Participant, Category
 class StyledFormMixin:
     """ Mixing to apply style to form field"""
 
-    default_classes = "border-2 border-gray-300 w-full p-3 rounded-lg shadow-sm focus:outline-none focus:border-rose-500 focus:ring-rose-500"
+    default_classes = "border-2 border-gray-300 w-full p-3 rounded-lg shadow-sm focus:outline-none focus:border-cyan-500 focus:ring-cyan-600"
 
     def __init__(self, *args, **kwarg):
         super().__init__(*args, **kwarg)

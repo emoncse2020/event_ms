@@ -1,0 +1,42 @@
+{% extends "admin/dashboard.html" %}
+{% block content %}
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="overflow-x-auto shadow-lg rounded-lg border border-zinc-600">
+        <h2 class="text-2xl font-bold mb-6 text-white text-center px-6 pt-4">Role and Permissions</h2>
+        <table class="min-w-full bg-zinc-800">
+            <thead class="bg-zinc-700">
+                <tr>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider border-b border-zinc-600">
+                        Group Name
+                    </th>
+                    <th class="px-6 py-4 text-left text-sm font-semibold text-white uppercase tracking-wider border-b border-zinc-600">
+                        Permissions
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-600">
+                {% for group in groups %}
+                <tr class="hover:bg-zinc-700/50 transition-colors">
+                    <td class="px-6 py-4 whitespace-nowrap text-white font-medium border-zinc-600">
+                        {{ group.name }}
+                    </td>
+                    <td class="px-6 py-4 text-white border-zinc-600">
+                        <ul class="space-y-1">
+                            {% for permission in group.permissions.all %}
+                            <li class="flex items-center">
+                                <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-2"></span>
+                                <span class="text-sm">{{ permission.name }} |</span>
+                                <code class="ml-1 text-cyan-300 text-xs font-mono">{{ permission.codename }}</code>
+                            </li>
+                            {% empty %}
+                            <span class="text-zinc-400 italic text-sm">No permissions assigned</span>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

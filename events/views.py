@@ -3,8 +3,12 @@ from .forms import EventModelForm, ParticipantModelForm
 from .models import Event, Participant,Category
 from django.db.models import Count, Q
 from django.utils.timezone import now
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 # Create your views here.
+
+def is_organizer(user):
+    return user.groups.filter(name = "Organizer").exists()
 
 def home(request):
     today = now().date()
@@ -17,6 +21,8 @@ def home(request):
 
     return render(request, 'events/home.html', context)
 
+@login_required
+@user_passes_test(is_organizer, login_url='no-permission')
 def create_event(request):
 
     event_form = EventModelForm(prefix='event')
@@ -42,6 +48,9 @@ def create_event(request):
     }
 
     return render(request, 'create-event.html', context)
+
+
+@user_passes_test(is_organizer, login_url='no-permission')
 def update_event(request, id):
     event = get_object_or_404(Event, id=id)
     # participant = get_object_or_404(Participant, event=event)
@@ -69,6 +78,8 @@ def update_event(request, id):
 
     return render(request, 'create-event.html', context)
 
+
+@user_passes_test(is_organizer, login_url='no-permission')
 def delete_event(request, id):
     event = get_object_or_404(Event, id= id)
     if request.method == "POST":
@@ -77,7 +88,7 @@ def delete_event(request, id):
     
     
 
-
+@user_passes_test(is_organizer, login_url='no-permission')
 def organizer_dashboard(request):
     today = now().date()
     
@@ -115,6 +126,8 @@ def organizer_dashboard(request):
     }
     return render(request, 'dashboard/organizer-dashboard.html', context )
 
+@login_required
+@user_passes_test(is_organizer, login_url='no-permission')
 def view_events(request):
 
     events = Event.objects.select_related('category').prefetch_related('participants').all()
