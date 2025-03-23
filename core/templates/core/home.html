@@ -1,22 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Welcome home</h1>
-    {% if user.is_authenticated %}
-        {{user}}
-        <form action="{% url 'sign-out' %}" method="POST">
-            {% csrf_token %}
-            <button type="submit">Log Out</button>
-        </form>
-    {% else %}
-        Annonymous
-    {% endif %}
-    
-    
-</body>
-</html>
+
+
+{% extends "core/base.html" %}
+
+{% block content %}
+        <!-- Hero Section -->
+        <section class="bg-cyan-600 text-white py-32 md:py-40">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    Transform Your Event Management Experience
+                </h1>
+                <p class="text-xl mb-12">
+                    From planning to execution - All your event needs in one platform
+                </p>
+                <a href="#" class="bg-white text-cyan-600 px-8 py-4 rounded-md font-semibold text-lg hover:bg-gray-100 transition duration-300">
+                    Create Event
+                </a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-24 md:py-32">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-16">
+                    Powerful Event Management Features
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <!-- Planning Card -->
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <h3 class="text-2xl font-semibold mb-6">Event Planning</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3">
+                            <li>Customizable event templates</li>
+                            <li>Budget tracking tools</li>
+                            <li>Vendor management system</li>
+                            <li>Task delegation features</li>
+                        </ul>
+                    </div>
+                    <!-- Promotion Card -->
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <h3 class="text-2xl font-semibold mb-6">Event Promotion</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3">
+                            <li>Custom registration pages</li>
+                            <li>Email campaign tools</li>
+                            <li>Social media integration</li>
+                            <li>Analytics dashboard</li>
+                        </ul>
+                    </div>
+                    <!-- Execution Card -->
+                    <div class="bg-white rounded-lg shadow-md p-8">
+                        <h3 class="text-2xl font-semibold mb-6">Event Execution</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3">
+                            <li>Real-time check-in system</li>
+                            <li>Mobile event apps</li>
+                            <li>Live polling & Q&A</li>
+                            <li>Post-event surveys</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="bg-gray-200 py-24 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <div class="text-4xl font-bold text-cyan-600 mb-2">50K+</div>
+                        <div class="text-gray-600">Events Hosted</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <div class="text-4xl font-bold text-cyan-600 mb-2">1M+</div>
+                        <div class="text-gray-600">Participants Engaged</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <div class="text-4xl font-bold text-cyan-600 mb-2">150+</div>
+                        <div class="text-gray-600">Countries Served</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="bg-cyan-600 text-white py-24 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold mb-6">
+                    Ready to Revolutionize Your Events?
+                </h2>
+                <p class="text-xl mb-12">
+                    Join thousands of event professionals already using EventFlow
+                </p>
+                <a href="#" class="bg-white text-cyan-600 px-8 py-4 rounded-md font-semibold text-lg hover:bg-gray-100 transition duration-300">
+                    Start Free Trial
+                </a>
+            </div>
+        </section>
+
+        {% endblock content %}

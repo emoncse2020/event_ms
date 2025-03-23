@@ -1,16 +1,6 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    {% comment %} <link rel="stylesheet" href="{% static 'css/output.css' %}"> {% endcomment %}
-         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+{% extends "core/base.html" %}
 
-</head>
-<body>
-    <h1>Welcome to Authentication System</h1>
+{% block content %}
     <div>
         {% if messages %}
             {% for message in messages %}
@@ -20,8 +10,7 @@
         <form method='POST'>
             {% csrf_token %}
             {{ form }}
-            <button class='bg-blue-500 px-2 py-1 rounded-sm' type="submit">Sign In</button>
+            <button class='bg-cyan-600 hover:bg-cyan-800 px-2 py-1 rounded' type="submit">Sign In</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock content %}

@@ -1,16 +1,6 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    {% comment %} <link rel="stylesheet" href="{% static 'css/output.css' %}"> {% endcomment %}
-         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+{% extends "core/base.html" %}
 
-</head>
-<body>
-    <h1>Welcome to Authentication System</h1>
+{% block content %}
     <div>
         {% if form.non_field_errors %}
             {% for error in form.non_field_errors %}
@@ -33,8 +23,7 @@
                     {% endif %}
                </p>
             {% endfor %}
-            <button type="submit" class="bg-cyan-400 px-2 py-1 m-2 rounded">Sign Up</button>
+            <button type="submit" class='bg-cyan-600 hover:bg-cyan-800 px-2 py-1 rounded'>Sign Up</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock content %}
