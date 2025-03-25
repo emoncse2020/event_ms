@@ -3,9 +3,9 @@
  <header class="bg-white shadow-md">
         <nav class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
-                <div class="text-xl font-bold text-gray-800">EventXpert</div>
+                <div class="text-xl font-bold text-gray-800"><a href="{% url 'home' %}">EventXpert</a></div>
                 <div class="hidden md:flex space-x-4">
-                    <a href="#" class="text-gray-600 hover:text-gray-800">Dashboard</a>
+                    <a href="{% url 'organizer-dashboard' %}" class="text-gray-600 hover:text-gray-800">Dashboard</a>
                    
                     <a href="#" class="text-gray-600 hover:text-gray-800">Events</a>
                     <a href="#" class="text-gray-600 hover:text-gray-800">Create Event</a>
@@ -43,8 +43,7 @@
                             Logout
                         </button>
                     </form>
-                </a>
-                
+                </a>   
             </div>
         </nav>
     </header>

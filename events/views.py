@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EventModelForm, ParticipantModelForm
-from .models import Event, Participant,Category
+from .forms import EventModelForm
+from .models import Event,Category
 from django.db.models import Count, Q
 from django.utils.timezone import now
+from django.contrib.auth.models import User
+
 from django.contrib.auth.decorators import user_passes_test, login_required
 
 # Create your views here.
@@ -10,7 +12,7 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 def is_organizer(user):
     return user.groups.filter(name = "Organizer").exists()
 
-def home(request):
+def user_dashboard(request):
     today = now().date()
 
     up_events = Event.objects.select_related('category').prefetch_related('participants').filter(date__gte=today)
@@ -19,32 +21,26 @@ def home(request):
         "up_events":up_events,
     }
 
-    return render(request, 'events/home.html', context)
+    return render(request, 'events/user_dashboard.html', context)
 
 @login_required
 @user_passes_test(is_organizer, login_url='no-permission')
 def create_event(request):
 
     event_form = EventModelForm(prefix='event')
-    event_participant_form = ParticipantModelForm(prefix='participant')
+    
 
     if request.method == "POST":
         event_form = EventModelForm(request.POST, prefix='event')
-        event_participant_form = ParticipantModelForm(request.POST, prefix='participant')
-        if event_form.is_valid() and event_participant_form.is_valid():
+        if event_form.is_valid():
             
-            
-            event = event_form.save()
-            participant = event_participant_form.save(commit=False)
-            participant.event = event
-            participant.save()
+            event_form.save()
             
 
             return redirect ('home')
 
     context = {
-        "event_form": event_form,
-        "event_participant_form":event_participant_form
+        "event_form": event_form
     }
 
     return render(request, 'create-event.html', context)
@@ -53,27 +49,19 @@ def create_event(request):
 @user_passes_test(is_organizer, login_url='no-permission')
 def update_event(request, id):
     event = get_object_or_404(Event, id=id)
-    # participant = get_object_or_404(Participant, event=event)
-    participant = Participant.objects.filter(event=event).first()
     event_form = EventModelForm(instance=event, prefix='event')
 
-    event_participant_form = ParticipantModelForm(instance = participant, prefix='participant')
 
     if request.method == "POST":
         event_form = EventModelForm(request.POST, instance=event, prefix='event')
-        event_participant_form = ParticipantModelForm(request.POST, instance= participant, prefix='participant')
-        if event_form.is_valid() and event_participant_form.is_valid():
+        
+        if event_form.is_valid():
 
-               
-            event = event_form.save()
-            participant = event_participant_form.save(commit=False)
-            participant.event = event
-            participant.save()
+            event_form.save()
             return redirect ('home')
 
     context = {
         "event_form": event_form,
-        "event_participant_form":event_participant_form
     }
 
     return render(request, 'create-event.html', context)
@@ -99,7 +87,7 @@ def organizer_dashboard(request):
         past_event = Count('id', filter=Q(date__lt=today))
 
         )
-    total_participant = Participant.objects.count()
+    total_participant = User.objects.count()
     base_query = Event.objects.select_related('category').prefetch_related('participants')
 
     if type == "total-events":
@@ -138,3 +126,9 @@ def view_events(request):
         "pars":total_participant
     }
     return render(request, 'dashboard/view_events.html', context)
+
+@login_required
+@user_passes_test(is_organizer, login_url='no-permission')
+def event_details(request, event_id):
+    event = Event.objects.get(id = event_id)
+    return render(request, 'event_details.html', {"event":event})

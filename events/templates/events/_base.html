@@ -1,75 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  {% load static %}
-  
-
-  <link rel="stylesheet" href="{% static 'css/output.css' %}">
-</head>
-
-<body class="bg-zinc-800">
-
-  <!-- Nav Container -->
-  <nav class="relative container mx-auto p-6 ">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-20">
-        <h1 class="text-5xl text-white">EventXpert</h1>
-        <div class="hidden space-x-8 font-bold lg:flex">
-          <a href="#" class="text-gray-300 hover:text-white">Features</a>
-          <a href="#" class="text-gray-300 hover:text-white">Upcoming Event</a>
-          <a href="{% url "organizer-dashboard" %}" class="text-gray-300 hover:text-white">Dashboard</a>
-        </div>
-      </div>
-      <div class="hidden items-center space-x-6 font-bold text-gray-300 lg:flex">
-        <a href="#" class="hover:text-white">Login</a>
-        <a href="#" class="px-8 py-3 font-bold text-white bg-cyan-300 rounded-full hover:opacity-70">Sign Up</a>
-      </div>
-
-      <!-- Hamburger Button -->
-      <button id="menu-btn" class="block lg:hidden focus:outline-none">
-        <span class="block w-6 h-1 bg-white mb-1"></span>
-        <span class="block w-6 h-1 bg-white mb-1"></span>
-        <span class="block w-6 h-1 bg-white"></span>
-      </button>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div id="menu" class="absolute hidden lg:hidden p-6 rounded-lg left-6 right-6 top-20 z-50 ">
-      <div class="flex flex-col items-center w-full space-y-6 font-bold text-white">
-        <a href="#" class=" text-center">Features</a>
-        <a href="#" class=" text-center">Upcoming Events</a>
-        <a href="{% url "organizer-dashboard" %}" class=" text-center">Dashboard</a>
-        <a href="#" class=" w-full pt-6 border-t border-gray-400 text-center">Login</a>
-        <a href="#" class=" py-3 px-5 text-center rounded-full bg-cyan-300">Sign Up</a>
-      </div>
-    </div>
-  </nav>
-
+{% extends "core/base.html" %}
+{% block content %}
   <main>
-    {% block content %}
-    {% endblock content %}
+    {% block user_content %}
+    {% endblock user_content %}
 
   </main>
 
+{% endblock content %}
 
 
 
 
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const btn = document.getElementById("menu-btn");
-      const menu = document.getElementById("menu");
-
-      btn.addEventListener("click", function () {
-        menu.classList.toggle("hidden");
-        menu.classList.toggle("flex");
-        btn.classList.toggle("open");
-      });
-    });
-  </script>
-
-</body>
-</html>
+ 

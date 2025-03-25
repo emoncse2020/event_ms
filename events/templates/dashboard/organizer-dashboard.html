@@ -1,13 +1,12 @@
 {% extends "dashboard/dashboard.html" %}
 
-{% block content %}
+{% block dashboard %}
 
-<!--Todays Events-->
-      <div class="bg-zinc-700 rounded-xl text-white p-6 mx-8 mt-6">
+   <div class="bg-white container mx-auto rounded-xl p-6 mt-6">
   <h2 class="text-2xl font-semibold border-b pb-2 mb-4">Today's Events</h2>
   
  {% if today_events %}
-  <div class="space-y-4">
+  <div class="space-y-4 ">
     <!-- Example Event Item -->
     {% for event in today_events %}
       <div class="bg-zinc-800 p-4 rounded-lg flex justify-between items-center">
@@ -32,13 +31,13 @@
   </div>
 </div>
 
-<div class="bg-zinc-700 rounded-xl text-white p-6 mx-8 mt-6 mb-4">
+<div class="bg-white rounded-xl p-6 container mx-auto mt-6 mb-4">
         <div
           class="grid grid-cols-4 p-4 border-b "
         >
           <div class="uppercase">Event Name</div>
           <div class="uppercase">Date</div>
-          <div class="uppercase">participants</div>
+          <div class="uppercase">attendee</div>
           <div class="uppercase">Location</div>
           
         </div>
@@ -50,11 +49,11 @@
         <div class="grid grid-cols-4 gap-4 p-4 items-center">
         <div class="flex items-center gap-2">
           <div class="w-2 h-2 rounded-full bg-green-500"></div>
-          <span>{{event.name}}</span>
+          <a href="{% url 'event-details' event.id %}">{{event.name}}</a>
           <a href="{% url "update-event" event.id %}" class="px-2 py-1 bg-zinc-900 rounded-xl">Edit</a>
           <form action="{% url "delete-event" event.id %}"method="POST">
             {% csrf_token %}
-            <button type="submit" class="bg-red-600 px-2 py-1 rounded-xl cursor-pointer">Delete</button>
+            <button type="submit" class="bg-red-600 px-2 py-1 rounded-xl">Delete</button>
           </form>
         </div>
         <div>
@@ -68,7 +67,7 @@
            <div
             class="w-8 h-8 rounded-full bg-cyan-500 flex items-center justify-center text-white text-sm border-2 border-white"
           >
-            {{emp.name|slice:':2'}}
+            {{emp.first_name|slice:':2'}}
           </div>
          {% endfor %}
           
@@ -78,4 +77,4 @@
       {% endfor %}
 
 
-{% endblock content %}
+{% endblock dashboard %}

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Event, Participant, Category
+from .models import Event
 
 
 class StyledFormMixin:
@@ -59,11 +59,6 @@ class EventModelForm(StyledFormMixin,forms.ModelForm):
         }
 
 
-class ParticipantModelForm(StyledFormMixin,forms.ModelForm):
-    
-    class Meta:
-        model = Participant
-        fields = ['name', 'email']
 
        
 

@@ -15,11 +15,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-around h-16">
                 <div class="flex items-center">
-                    <a href="/admin/" class="text-2xl font-bold text-white">EventXpert</a>
+                    <a href="{% url 'home' %}" class="text-2xl font-bold text-white">EventXpert</a>
                     <div class="hidden md:flex space-x-4 ml-10">
                         <a href="{% url "admin-dashboard" %}" class="px-3 py-2 text-white hover:text-white">Dashboard</a>
                         <a href="/admin/events/" class="px-3 py-2 text-white hover:text-white">Events</a>
-                        <a href="/admin/events/" class="px-3 py-2 text-white hover:text-white">Create Events</a>
+                        <a href="{% url "create-event" %}" class="px-3 py-2 text-white hover:text-white">Create Events</a>
                         <a href="{% url "group-list" %}" class="px-3 py-2 text-white hover:text-white">Group</a>
                         <a href="{% url "create-group" %}" class="px-3 py-2 text-white hover:text-white">Create Group</a>
                         <a href="/admin/categories/" class="px-3 py-2 text-white hover:text-white">Categories</a>

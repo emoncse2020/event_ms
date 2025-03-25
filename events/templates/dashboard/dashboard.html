@@ -1,48 +1,14 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/output.css' %}">
-  </head>
-  <body class="">
-    <!--header text and logo-->
+{% extends "core/base.html" %}
+{% comment %} {% block title %}Event Dashboard{% endblock title %} {% endcomment %}
 
-    <header class="container mx-auto mt-6">
-      <nav class="flex mx-8 items-center justify-between">
-        <a href="#" class="text-2xl">DASHBOARD</a>
-        <div class="flex items-center">
-          <a href="#" class="w-10 h-10 bg-zinc-400 rounded-full items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              class=""
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
-              />
-            </svg>
-          </a>
-          <a
-            href="#"
-            class="text-2xl bg-zinc-700 text-white ml-3 h-10 w-10 rounded-full flex items-center justify-center"
-            >B</a
-          >
-        </div>
-        <!--logo and text-->
-      </nav>
-    </header>
-    <main class="container mx-auto mt-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mx-8">
+{% block content %}
+<div class=' bg-gray-100'>
+   
+ <main class="container mx-auto mt-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <!--Total participants-->
        <a href="{% url "organizer-dashboard" %}">
-         <div class="bg-zinc-700 rounded-xl text-white p-4">
+         <div class="bg-white rounded-xl p-4">
           <h1 class="uppercase text-3xl">total participants</h1>
           <div class="mt-2 flex justify-between items-center">
             <div>
@@ -66,7 +32,7 @@
        </a>
         <!--total events-->
         <a href="{% url "organizer-dashboard" %}?type=total-events">
-          <div class="bg-zinc-700 rounded-xl text-white p-4">
+          <div class="bg-white rounded-xl p-4">
           <h1 class="uppercase text-3xl">total events</h1>
           <div class="mt-2 flex justify-between items-center">
             <div>
@@ -94,7 +60,7 @@
         </a>
         <!--Upcoming events-->
         <a href="{% url "organizer-dashboard" %}?type=upcoming-events">
-          <div class="bg-zinc-700 rounded-xl text-white p-4">
+          <div class="bg-white rounded-xl p-4">
           <h1 class="uppercase text-3xl">Upcoming events</h1>
           <div class="mt-2 flex justify-between items-center">
             <div>
@@ -123,7 +89,7 @@
         </a>
         <!--past events-->
         <a href="{% url 'organizer-dashboard' %}?type=past-events">
-          <div class="bg-zinc-700 rounded-xl text-white p-4">
+          <div class="bg-white rounded-xl p-4">
           <h1 class="uppercase text-3xl">past events</h1>
           <div class="mt-2 flex justify-between items-center">
             <div>
@@ -151,11 +117,15 @@
         </a>
       </div>
 
-     {% block content %}
      
-     {% endblock content %}
 
+{% block dashboard %}
+    
+    
+{% endblock dashboard %}
+      </main>
 
-    </main>
-  </body>
-</html>
+</div>
+
+    
+{% endblock content %}

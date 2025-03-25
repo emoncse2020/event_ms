@@ -1,0 +1,82 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class='my-6 mx-6'>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <div class="lg:col-span-2">
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <!-- Event Tags -->
+            <div class="flex gap-3 mb-6">
+              <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm">CATEGORY: {{event.category.name}}</span>
+              <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">DATE: {{event.date}}</span>
+            </div>
+
+            <!-- Event Meta -->
+            <div class="text-gray-600 mb-6">Time: {{event.time}} | Location:{{event.location}}</div>
+
+            <!-- Participants -->
+            <div class="mb-9">
+              <h2 class="text-xl font-bold mb-4">PARTICIPANTS</h2>
+              <div class="space-y-4">
+                {% for participant in event.participants.all %}
+                    <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white">{{participant.name|slice:':2'}}</div>
+                  <div>
+                    <div class="font-semibold">{{participant.name}}</div>
+                    <div class="text-gray-600">Registered User</div>
+                  </div>
+                </div>
+                {% endfor %}
+                <!-- Repeat this block for each participant -->
+              </div>
+            </div>
+
+            <div>
+              <button class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" type="submit">
+                Cancel Registration
+              </button>
+            </div>
+            <div>
+                 <div class="flex p-4 m-4">
+                    <a href='' class="px-2 py-1 bg-green-500">Edit</a>
+                    <form action='' method='POST'>
+                        {% csrf_token %}
+                        <button
+                            class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                            type="submit"
+                            >
+                            Delete Task
+                        </button>
+                    </form>
+            
+                 </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <!-- Description -->
+          <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+            <h2 class="text-xl font-bold mb-4">DESCRIPTION</h2>
+            <p class="text-gray-600">
+             {{event.description}}
+            </p>
+          </div>
+
+          <!-- Assets (if any) -->
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-xl font-bold mb-4">ASSETS</h2>
+            <img src="/event-image.svg?height=200&width=300" alt="Event Banner" class="w-full rounded-lg" />
+          </div>
+        </div>
+      </div>
+</div>
+
+
+{% endblock content %}
+
+
+
