@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from decouple import config
 from pathlib import Path
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -93,24 +93,24 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'event_ms',
-        'USER': 'postgres',
-        'PASSWORD': 'tasnim',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
-}
-
 # DATABASES = {
-#     'default': dj_database_url.config(
-#         # Replace this value with your local database's connection string.
-#         default='postgresql://event_ms_db_g39n_user:h1AOOMzx71bFluJIWdk7aTMkg6l4Qm8D@dpg-cvaud3tsvqrc73c2cnfg-a.oregon-postgres.render.com/event_ms_db_g39n',
-#         conn_max_age=600
-#     )
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'event_ms',
+#         'USER': 'postgres',
+#         'PASSWORD': 'tasnim',
+#         'HOST': 'localhost',
+#         'PORT': '5432'
+#     }
 # }
+
+DATABASES = {
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://event_ms_db_g39n_user:h1AOOMzx71bFluJIWdk7aTMkg6l4Qm8D@dpg-cvaud3tsvqrc73c2cnfg-a.oregon-postgres.render.com/event_ms_db_g39n',
+        conn_max_age=600
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
