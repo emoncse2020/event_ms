@@ -71,6 +71,19 @@
             <a href="" class="px-4 py-2 bg-cyan-600 text-white rounded-md hover:bg-cyan-700 transition">
               Details
             </a>
+            {% if user in event.participants.all %}
+  <button class="px-4 py-2 bg-gray-400 text-white rounded-md cursor-not-allowed" disabled>
+    Already Joined
+  </button>
+{% else %}
+  <form action="{% url 'join-event' event.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
+      Join Event
+    </button>
+  </form>
+{% endif %}
+
           </div>
         </div>
       </div>
@@ -80,7 +93,7 @@
     </div>
   </section>
 
-#assignment 1
+
 {% endblock user_content %}
 
 

@@ -4,6 +4,8 @@ from .models import Event,Category
 from django.db.models import Count, Q
 from django.utils.timezone import now
 from django.contrib.auth.models import User
+from django.contrib import messages
+from users.views import is_admin
 
 from django.contrib.auth.decorators import user_passes_test, login_required
 
@@ -11,6 +13,9 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 
 def is_organizer(user):
     return user.groups.filter(name = "Organizer").exists()
+
+def is_user(user):
+    return user.groups.filter (name = "User").exists()
 
 def user_dashboard(request):
     today = now().date()
@@ -31,7 +36,7 @@ def create_event(request):
     
 
     if request.method == "POST":
-        event_form = EventModelForm(request.POST, prefix='event')
+        event_form = EventModelForm(request.POST,request.FILES, prefix='event')
         if event_form.is_valid():
             
             event_form.save()
@@ -132,3 +137,29 @@ def view_events(request):
 def event_details(request, event_id):
     event = Event.objects.get(id = event_id)
     return render(request, 'event_details.html', {"event":event})
+
+@login_required
+def join_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+
+    if request.user in event.participants.all():
+        messages.info(request, "You already joined this event.")
+    else:
+        event.participants.add(request.user)
+        messages.success(request, f"You've joined {event.name}. Confirmation email sent.")
+
+    return redirect('user-dashboard')
+
+
+@login_required
+def dashboard(request):
+    if is_organizer(request.user):
+        return redirect('organizer-dashboard')
+    elif is_user(request.user):
+        return redirect('user-dashboard')
+    
+    elif is_admin(request.user):
+        return redirect('admin-dashboard')
+    
+    return redirect('no-permission')
+    
