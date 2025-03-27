@@ -10,10 +10,15 @@ def send_join_email(sender, instance, action, pk_set, **kwargs):
     if action == "post_add":
         for user_id in pk_set:
             user = User.objects.get(pk=user_id)
-            send_mail(
-                subject="Event Registration Confirmation",
-                message=f"Hi {user.first_name},\n\nYou have successfully joined the event: {instance.name} on {instance.date} at {instance.location}.",
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[user.email],
-                fail_silently=False,
-            )
+        send_mail(
+        subject="Event Registration Confirmation",
+        message=(
+            f"Hi {user.first_name},\n\n"
+            f"You have successfully joined the event: {instance.name} "
+            f"on {instance.date} at {instance.location}."
+        ),
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[user.email],
+        fail_silently=False,
+)
+
