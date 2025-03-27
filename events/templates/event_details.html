@@ -22,32 +22,30 @@
               <div class="space-y-4">
                 {% for participant in event.participants.all %}
                     <div class="flex items-center gap-4">
-                  <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white">{{participant.name|slice:':2'}}</div>
+                  <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white">{{participant.first_name|slice:':2'}}</div>
                   <div>
-                    <div class="font-semibold">{{participant.name}}</div>
-                    <div class="text-gray-600">Registered User</div>
+                    <div class="font-semibold">{{participant.first_name}}</div>
+                    <div class="text-gray-600">{{participant.groups.first.name | default:"No Role"}}</div>
                   </div>
                 </div>
                 {% endfor %}
-                <!-- Repeat this block for each participant -->
+                
               </div>
             </div>
 
             <div>
-              <button class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600" type="submit">
-                Cancel Registration
-              </button>
+              
             </div>
             <div>
                  <div class="flex p-4 m-4">
-                    <a href='' class="px-2 py-1 bg-green-500">Edit</a>
-                    <form action='' method='POST'>
+                    <a href='{% url "update-event" event.id %}' class="px-2 py-1 bg-green-500 rounded mx-2">Edit</a>
+                    <form action='{% url "delete-event" event.id %}' method='POST'>
                         {% csrf_token %}
                         <button
                             class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
                             type="submit"
                             >
-                            Delete Task
+                            Delete Event
                         </button>
                     </form>
             
@@ -69,7 +67,12 @@
           <!-- Assets (if any) -->
           <div class="bg-white p-6 rounded-lg shadow-sm">
             <h2 class="text-xl font-bold mb-4">ASSETS</h2>
-            <img src="{{event.asset.url}}" class='h-[300px] w-[300px]' alt="Event Banner" class="w-full rounded-lg" />
+            {% if event.asset %}
+              <img src="{{event.asset.url}}"alt="Event Banner" class="w-full rounded-lg" />
+            {% else %}
+               <p class="text-gray-500">No asset uploaded for this event.</p>
+
+            {% endif %}
           </div>
         </div>
       </div>
